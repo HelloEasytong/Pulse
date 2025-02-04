@@ -1,0 +1,41 @@
+code = ''
+fun window -> name {
+    code = code + 'window_manager.create_window("' + name + '")' + ';'
+}
+
+fun color -> colors {
+    code = code + 'window_manager.get_graphics().set_color("' + colors + '")' + ';'
+}
+
+fun line -> x1, y1, x2, y2 {
+    x1 -> str
+    y1 -> str
+    x2 -> str
+    y2 -> str
+    code = code + 'window_manager.get_graphics().draw_line(' + y1 + ', ' + x1 + ', ' + y2 + ', ' + x2 + ')' + ';'
+}
+
+fun point -> x, y {
+    x -> str
+    y -> str
+    code = code + 'window_manager.get_graphics().draw_point(' + x + ', ' + y + ')' + ';'
+}
+
+fun rect -> x, y, width, height {
+    x -> str
+    y -> str
+    width -> str
+    height -> str
+    code = code + 'window_manager.get_graphics().draw_rect(' + x + ', ' + y + ', ' + width + ', ' + height + ')' + ';'
+}
+
+fun circle -> x, y, radius {
+    x -> str
+    y -> str
+    radius -> str
+    code = code + 'window_manager.get_graphics().draw_circle(' + x + ', ' + y + ', ' + radius + ')' + ';'
+}
+
+fun show {
+    :'from module.graphics import WindowManager;window_manager = WindowManager();' + code + 'window_manager.show_windows()'
+}

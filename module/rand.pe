@@ -1,0 +1,5 @@
+fun randint -> min, max{
+    min -> str
+    max -> str
+    :'import random;self.variables["randint"] = random.randint(min, max)'
+}

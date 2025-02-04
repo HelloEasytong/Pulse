@@ -1,0 +1,19 @@
+fun system -> code {
+    :'import os;os.system("' + code + '")'
+}
+
+fun mkdir -> code {
+    :'import os;os.mkdir("' + code + '")'
+}
+
+fun cd -> code {
+    :'import os;os.chdir("' + code + '")'
+}
+
+fun ls -> code {
+    :'import os;os.listdir("' + code + '")'
+}
+
+fun rm -> code {
+    :'import os;os.remove("' + code + '")'
+}

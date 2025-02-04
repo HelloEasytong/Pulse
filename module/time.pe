@@ -1,0 +1,12 @@
+fun sleep -> void{
+    void -> str
+    :'import time;time.sleep(' + void + ')'
+}
+
+fun time{
+    :'import time;print(time.time())'
+}
+
+fun now{
+    :'import time;print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))'
+}
