@@ -109,6 +109,15 @@ class Parser:
             elif value == 'finish':
                 self.position += 1
                 return ('finish',)
+            
+            # 处理 raise 语句
+            elif value == 'raise':
+                self.position += 2
+                error_name = self.tokens[self.position - 1][1]
+                self.expect('BRACE', '(')
+                error_text = self.parse_expression()  
+                self.expect('BRACE', ')')
+                return ('raise', error_name, error_text)
 
             # 解析 if 语句
             elif value == 'if':
@@ -210,6 +219,7 @@ class Parser:
                 return ('python', body, returns)
 
             # 如果没有匹配的语法结构，抛出错误
+            print(self.position)
             print(Fore.RED + f"Error grammatical: {value}" + Style.RESET_ALL)
             self.kill = 1
             return
@@ -256,6 +266,10 @@ class Parser:
                 self.position += 1
                 right_expr = self.parse_expression()  # 解析右侧表达式
                 return ('binary_op', operator, ('variable', value), right_expr)
+            # 检查是否是函数
+            if self.position < len(self.tokens) and self.tokens[self.position][1] == '(':
+                self.position -= 1
+                return self.parse_statement()
 
             return ('variable', value)
 
