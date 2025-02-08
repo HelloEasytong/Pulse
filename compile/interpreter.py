@@ -1,8 +1,3 @@
-import time
-import datetime
-import subprocess
-import os
-import random
 from compile.modules import get_module, read_module
 from colorama import Fore, Style
 
@@ -42,6 +37,7 @@ class Interpreter:
 
     # 解释执行抽象语法树（AST）
     def interpret(self, ast):
+        self.kill == 0
         try:
             len(ast)
         except:
@@ -50,6 +46,7 @@ class Interpreter:
             try:
                 self.execute(node)  # 执行每个AST节点
                 if self.kill == 1:
+                    self.kill == 0
                     break
                 self.variables['_var_'] = self.variables
                 self.variables['_fun_'] = self.funiable
@@ -59,6 +56,7 @@ class Interpreter:
                 break  # 遇到错误则停止执行
     
     def struct_interpret(self,ast):
+        self.struct_kill == 0
         try:
             len(ast)
         except:
@@ -67,6 +65,7 @@ class Interpreter:
             try:
                 self.execute(node)  # 执行每个AST节点
                 if self.struct_kill == 1:
+                    self.struct_kill == 0
                     break
             except Exception as e:
                 print(Fore.RED + f"Error executing node {node}: {e}" + Style.RESET_ALL)
@@ -124,7 +123,7 @@ class Interpreter:
                 if node[1]:
                     if node[2] == "str":
                         user_input = str(user_input)
-                    elif node[2] == "num":
+                    elif node[2] == "int":
                         user_input = int(user_input)
                 return user_input
 
@@ -140,6 +139,7 @@ class Interpreter:
             elif node_type == 'until':
                 condition = self.evaluate(node[1])
                 while condition:
+                    print(node[2])
                     self.struct_interpret(node[2])  # 执行循环体
                     condition = self.evaluate(node[1])  # 重新评估循环条件
             
@@ -148,6 +148,13 @@ class Interpreter:
                 condition = self.evaluate(node[1])
                 for i in range(condition):
                     self.struct_interpret(node[2])
+
+            # 处理自定义报错语句
+            elif node_type == 'raise':
+                text = self.evaluate(node[2])  # 评估条件
+                print(Fore.RED + f"Error {node[1]}: {text}" + Style.RESET_ALL)
+                self.kill == 1
+                self.struct_kill == 1
 
             # 定义函数逻辑
             elif node_type == 'fun':
