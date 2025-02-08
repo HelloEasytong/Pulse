@@ -64,7 +64,7 @@ git clone https://github.com/HelloEasytong/Pulse.git
 #### 使用编译版本
 > 预编译版本目前仅支持 Windows 系统
 
-下载 Releases 里的 `.zip` 格式文件，解压，将里面的 `geko.exe` 放到 `PATH` 环境变量中即可使用。
+下载 Releases 里的 `.zip` 格式文件，解压，将里面的 `pulse.exe` 放到 `PATH` 环境变量中即可使用。
 
 ### 使用
 
