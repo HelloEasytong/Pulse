@@ -1,6 +1,7 @@
 from compile.tokenizer import tokenize
 from compile.parser import Parser
 from compile.interpreter import Interpreter
+from information import *
 import sys
 
 #  ____          _
@@ -34,14 +35,34 @@ import sys
 #//         佛祖保佑       永无BUG     永不修改                     //
 #////////////////////////////////////////////////////////////////////
 
-def main(cr = sys.argv[1]):
-    with open(cr, 'r', encoding='utf-8') as f:
+def main():
+    try:
+        sys.argv[1]
+    except:
+        print(r' ____          _')
+        print(r'|  _ \  _   _ | | ___   ___')
+        print(r'| |_) || | | || |/ __| / _ \ ')
+        print(r'|  __/ | |_| || |\__ \|  __/')
+        print(r'|_|     \__,_||_||___/ \___|')
+        print(r'----------------------------')
+        print(f'Name:{information[0]}\nVer:{information[1]}-{information[2]}\nLicense:GPL v3.0\nCopyright © {information[4]} {information[3]}.')
+        return
+    if sys.argv[1] == '--ver':
+        print(r' ____          _')
+        print(r'|  _ \  _   _ | | ___   ___')
+        print(r'| |_) || | | || |/ __| / _ \ ')
+        print(r'|  __/ | |_| || |\__ \|  __/')
+        print(r'|_|     \__,_||_||___/ \___|')
+        print(r'----------------------------')
+        print(f'Name:{information[0]}\nVer:{information[1]}-{information[2]}\nLicense:GPL v3.0\nCopyright © {information[4]} {information[3]}.')
+        return        
+    with open(sys.argv[1], 'r', encoding='utf-8') as f:
         code = f.read()
     tokens = tokenize(code) # 编译代码
     parser = Parser(tokens) 
     ast = parser.parse() # 编译 token
     if len(sys.argv) == 2:
-        interpreter = Interpreter()
+        interpreter = Interpreter(information)
         interpreter.interpret(ast) # 编译 ast
     else:
         if sys.argv[2] == '->':

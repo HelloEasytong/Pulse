@@ -1,5 +1,6 @@
 from compile.modules import get_module, read_module
 from colorama import Fore, Style
+from compile.calculator import calculate
 
 #////////////////////////////////////////////////////////////////////
 #//                          _ooOoo_                               //
@@ -25,10 +26,10 @@ from colorama import Fore, Style
 #////////////////////////////////////////////////////////////////////
 
 class Interpreter:
-    def __init__(self):
+    def __init__(self, information):
         self.funiable = {} # 用于存储函数的字典
         self.funiable_var = {}
-        self.variables = {'_name_':'pulse','_ver_':'1.0.20250106','_fun_':self.funiable,'_fun_var_':self.funiable_var}  # 用于存储全局变量的字典
+        self.variables = {'_name_': information[0],'_ver_': information[1] + '-' + information[2],'_fun_':self.funiable,'_fun_var_':self.funiable_var}  # 用于存储全局变量的字典
         self.variables['_var_'] = self.variables
         self.kill = 0 
         self.struct_kill = 0 
@@ -87,6 +88,8 @@ class Interpreter:
             # 处理输出文本的逻辑
             elif node_type == 'text':
                 value = self.evaluate(node[1])  # 评估表达式
+                if value == None:
+                    return
                 end = '\n'
                 if node[2]:
                     if node[3] == 'N':
@@ -223,13 +226,39 @@ class Interpreter:
                 left = self.evaluate(node[2])
                 right = self.evaluate(node[3])
                 if op == '+':
-                    return left + right
+                    result = calculate('add', left, right)
+                    cs = str(result)
+                    if cs[-2:] == '.0':
+                        result = int(result)
+                    return result
                 elif op == '-':
-                    return left - right
+                    result = calculate('sub', left, right)
+                    cs = str(result)
+                    if cs[-2:] == '.0':
+                        result = int(result)
+                    return result
                 elif op == '*':
-                    return left * right
+                    result = calculate('mul', left, right)
+                    cs = str(result)
+                    if cs[-2:] == '.0':
+                        result = int(result)
+                    return result
                 elif op == '/':
-                    return left / right
+                    result = calculate('div', left, right)
+                    cs = str(result)
+                    if cs[-2:] == '.0':
+                        result = int(result)
+                    return result
+                elif op == '**':
+                    result = calculate('pow', left, right)
+                    cs = str(result)
+                    if cs[-2:] == '.0':
+                        result = int(result)
+                    return result
+                elif op == '//':
+                    return left // right
+                elif op == '%':
+                    return left % right
                 elif op == '<':
                     return left < right
                 elif op == '<=':

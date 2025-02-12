@@ -18,8 +18,8 @@
 在兴趣驱动下完成的一个编程语言，是本人正式的第一个 Python 项目😫，支持模块导入，变量定义，IO，函数等功能，目前还在开发中，更新速度较慢🙁，也欢迎各位大佬来贡献代码，或者提出建议😘（Python 版本 > 3.12）。
 
 ## 版本
-- 📦版本号：1.0.20250204
-- 🕓日期：2025年2月4日
+- 📦版本号：1.0.20250212
+- 🕓日期：2025年2月12日
 
 <!-- ROADMAP -->
 ## 计划
@@ -35,8 +35,8 @@
 - ✅ raise 语句
 - ❌ 速度优化
   - ❌ 升级 Python 版本，突破 JIT 的性能瓶颈
-  - ❌ 使用 Cython
-  - ❌ 优化代码结构
+  - ✅ 使用 Cython
+  - ✅ 优化代码结构
 - ❌ 错误处理
 - ❌ 文件IO
 - ❌ 集合类
@@ -57,12 +57,16 @@
 ### 安装
 
 #### 使用源码
+> 需要将 `compile` 文件夹放到 `PATH` 环境变量中
+
 ```shell
 git clone https://github.com/HelloEasytong/Pulse.git
 ```
 
 #### 使用编译版本
 > 预编译版本目前仅支持 Windows 系统
+
+> 需要将 `data` 文件夹放到 `PATH` 环境变量中
 
 下载 Releases 里的 `.zip` 格式文件，解压，将里面的 `pulse.exe` 放到 `PATH` 环境变量中即可使用。
 
@@ -73,7 +77,7 @@ git clone https://github.com/HelloEasytong/Pulse.git
 cd Pulse
 python main.py <您要运行的 Pulse 文件> 
 ```
-> 如有需要，可以在末尾添加 ‘-> token’ 或 ‘-> ast’ 来查看运行生成的 token 或 ast
+> 如有需要，可以在末尾添加 ‘-> token’ 或 ‘-> ast’ 来查看运行生成的 token 或 ast，也可以使用 ‘--ver’ 来查看当前版本
 
 #### 使用预编译版本
 ```shell

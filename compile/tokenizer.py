@@ -27,10 +27,10 @@ from colorama import Fore, Style
 # 定义token类型
 TOKEN_TYPES = {
     'COMMENT': r'\/\/.*|\/\*[\s\S]*?\*\/',
-    'KEYWORD': r'\b(text|if|struct|else|class|raise|until|finish|repeat|foreach|rand|using|return|fun|read|null)\b',
+    'KEYWORD': r'\b(text|var|if|struct|else|class|raise|until|finish|repeat|foreach|rand|using|return|fun|read|null)\b',
     'CLASS': r'\b(str|int)\b',
     'BOOL': r'\b(True|False)\b',
-    'NUMBER': r'\b\d+\b',
+    'NUMBER': r'\b-?\d+(\.\d+)?\b',
     'STRING': r'\'[^\']*\'|\"[^\"]*\"',
     'IDENTIFIER': r'\b[a-zA-Z_][a-zA-Z0-9_]*\b',
     'EXCAPE': r'->',

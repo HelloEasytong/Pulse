@@ -183,6 +183,15 @@ class Parser:
                 body = self.parse_block()
                 self.expect('BRACE','}')
                 return ('fun', fun_name, body, fun_var)
+            
+            # 解析赋值语句
+            elif value == 'var':
+                self.position += 1
+                var = self.tokens[self.position][1]
+                self.position += 1
+                self.expect('OPERATOR', '=')  # 期望一个等号
+                expr = self.parse_expression()
+                return ('assign', var, expr)
 
             # 解析赋值语句
             elif token_type == 'IDENTIFIER':
@@ -236,13 +245,17 @@ class Parser:
         # 解析数字
         if token_type == 'NUMBER':
             self.position += 1
+            if '.' in value:
+                value = float(value)
+            else:
+                value = int(value)
             # 检查是否有操作符
             if self.position < len(self.tokens) and self.tokens[self.position][0] == 'OPERATOR':
                 operator = self.tokens[self.position][1]
                 self.position += 1
                 right_expr = self.parse_expression()  # 解析右侧表达式
-                return ('binary_op', operator, ('number', int(value)), right_expr)
-            return ('number', int(value))
+                return ('binary_op', operator, ('number', value), right_expr)
+            return ('number', value)
 
         # 解析字符串
         elif token_type == 'STRING':
